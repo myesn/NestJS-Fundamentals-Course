@@ -28,6 +28,7 @@ export class CoffeesService {
 
   create(body: any) {
     this.coffees.push(body);
+    return body;
   }
 
   update(id: string, updateBody: any) {
