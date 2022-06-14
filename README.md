@@ -1,6 +1,6 @@
 # 简介
 
-本仓库是学习 [《NestJS Fundamentals Course》](https://courses.nestjs.com/#overview) 课程的个人代码实践记录，关于文档笔记的链接在[这里](https://www.yuque.com/myesn/nestjs/grkn4a)
+本仓库是学习 [《NestJS Fundamentals Course》](https://courses.nestjs.com/#overview) 课程的个人代码实践记录，关于文字记录的笔记链接在[这里](https://www.yuque.com/myesn/nestjs/grkn4a)
 
 # 分支说明
 
