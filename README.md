@@ -10,11 +10,13 @@
 
 ### 使用 Codespaces 和 Postman
 
-在 `Codespaces` 中，会为每个打开应用程序端口生成各自独特的访问网址，而这个网址在访问需要登录凭据，在 `Postman` 中我们通过以下操作同步在浏览器中已经登录的身份凭据：
+在 `Codespaces` 中，会为每个应用程序打开的端口生成各自独特的随机访问地址，该地址在访问时需要登录凭据，我们通过以下操作将在浏览器中已经登录的身份凭据同步到 `Postman` 中：
 
 ![image.png](https://s2.loli.net/2022/06/14/Haq4PuicOVFTCMD.png)
 
 ![image.png](https://s2.loli.net/2022/06/14/gZv8keVM7uDSKUc.png)
+
+注意：`Codespaces` 环境实例每次重启后，生成的随机地址都不一样，所以需要在 `Postman` 中删除上次的同步地址，然后再添加新的随机地址去同步 `Cookie` 数据。
 
 ## 分支
 - [main](https://github.com/myesn/NestJS-Fundamentals-Course) 主线分支，存档最新的代码
