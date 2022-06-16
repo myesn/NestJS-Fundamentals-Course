@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  JoinTable,
+  ManyToMany,
+} from 'typeorm';
+import { Flavor } from './flavor.entity';
 
 @Entity() // sql table === 'coffee'
 export class Coffee {
@@ -11,6 +18,7 @@ export class Coffee {
   @Column()
   brand: string;
 
-  @Column('json', { nullable: true })
+  @JoinTable() // 关系所有者端才需要加这个修饰符，即主表要加，外表不加
+  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees)
   flavors: string[];
 }
