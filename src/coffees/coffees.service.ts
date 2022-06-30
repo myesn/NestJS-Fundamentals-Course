@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
+import { Event } from 'src/events/entities/event.entity';
 
 @Injectable()
 export class CoffeesService {
@@ -14,6 +15,7 @@ export class CoffeesService {
     private readonly coffeeRepository: Repository<Coffee>,
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
+    private readonly connection: Connection,
   ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
@@ -78,6 +80,38 @@ export class CoffeesService {
   async remove(id: number) {
     const coffee = await this.findOne(id);
     return this.coffeeRepository.remove(coffee);
+  }
+
+  async recommendCoffee(coffee: Coffee) {
+    // 创建 queryRunner
+    const queryRunner = this.connection.createQueryRunner();
+
+    // 使用此 queryRunner 建立到数据库的新连接
+    await queryRunner.connect();
+    // 一旦我们建立了连接，就可以开始事务了
+    await queryRunner.startTransaction();
+
+    // 我们需要将整个事务代码包装在 try/catch/finally 中，以确保如果出现任何错误，我们的 catch 语句可以回滚整个事务
+    try {
+      coffee.recommendations++;
+
+      const recommendEvent = new Event();
+      recommendEvent.name = 'recommend_coffee';
+      recommendEvent.type = 'coffee';
+      recommendEvent.payload = { coffeeId: coffee.id };
+
+      // 使用 query runner 实体管理器来保存 Coffee 和 Event 实体
+      await queryRunner.manager.save(coffee);
+      await queryRunner.manager.save(recommendEvent);
+
+      await queryRunner.commitTransaction();
+    } catch (error) {
+      // 出现任何错误，就回滚，防止数据库中的不一致
+      await queryRunner.rollbackTransaction();
+    } finally {
+      // 确保释放或关闭连接 queryRunner
+      await queryRunner.release();
+    }
   }
 
   private async preloadFlavorByName(name: string): Promise<Flavor> {
