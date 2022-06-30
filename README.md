@@ -16,7 +16,7 @@
 
 ![image.png](https://s2.loli.net/2022/06/14/gZv8keVM7uDSKUc.png)
 
-注意：`Codespaces` 环境实例每次重启后，生成的随机地址都不一样，所以需要在 `Postman` 中删除上次的同步地址，然后再添加新的随机地址去同步 `Cookie` 数据。
+注意：`Codespaces` 环境实例每次重启后，生成的随机地址都不一样，所以需要在 `Postman` 中删除上次的同步地址，然后再添加新的随机地址去同步 `Cookie` 数据（现在每次都是固定的地址了，所以重启后可以不用再修改 `Postman` 了）。
 
 ## 分支
 - [main](https://github.com/myesn/NestJS-Fundamentals-Course) 主线分支，存档最新的代码
