@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
+@Index(['name', 'type']) // 添加多列索引时，将修饰符应用于类上，然后传入需要添加索引的所有列名
 @Entity()
 export class Event {
   @PrimaryGeneratedColumn()
@@ -8,6 +9,7 @@ export class Event {
   @Column()
   type: string;
 
+  //@Index() // 添加单列索引时，将修饰符应用于具体的属性上
   @Column()
   name: string;
 
