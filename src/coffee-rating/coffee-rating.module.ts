@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { CoffeeRatingService } from './coffee-rating.service';
 
-@Module({})
+@Module({
+  providers: [CoffeeRatingService]
+})
 export class CoffeeRatingModule {}
