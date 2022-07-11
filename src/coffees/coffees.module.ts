@@ -17,6 +17,7 @@ import { Flavor } from './entities/flavor.entity';
    *  }
    * ]
    */
-  providers: [CoffeesService],
+  providers: [CoffeesService], // 注入到 IOC 容器
+  exports: [CoffeesService], // 导出为本模块的公共 Provider，即可以被其他模块解析使用
 })
 export class CoffeesModule {}
