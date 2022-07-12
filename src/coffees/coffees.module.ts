@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Scope } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Event } from 'src/events/entities/event.entity';
 import { Connection } from 'typeorm';
@@ -22,6 +22,7 @@ import { Flavor } from './entities/flavor.entity';
         return coffeeBrands;
       },
       inject: [Connection],
+      //scope: Scope.TRANSIENT,
     },
   ], // 注入到 IOC 容器
   exports: [CoffeesService], // 导出为本模块的公共 Provider，即可以被其他模块解析使用
