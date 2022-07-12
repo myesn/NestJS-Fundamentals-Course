@@ -11,14 +11,6 @@ import { Flavor } from './entities/flavor.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
   controllers: [CoffeesController],
-  /**
-   * providers: [
-   *  {
-   *    provide: CoffeesService,   // Injection token
-   *    useClass: CoffeesService,  // Type (class name) of provider (instance to be injected).
-   *  }
-   * ]
-   */
   providers: [
     CoffeesService,
     {
